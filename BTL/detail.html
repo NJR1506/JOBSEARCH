@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="DefaultWithTitle.css">
+
+    <style>
+
+        .job-card {
+            background-color: #EEE2DC;
+            border-radius: 12px;
+            padding: 22px;
+            margin: 20px auto; /* center horizontally */
+            max-width: 1500px; /* limits width on large screens */
+            width: 85%; /* responsive on smaller screens */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-section {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+        .company-icon {
+            width: 80px;
+            height: 80px;
+            background-color: none; /* placeholder */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Mini icon squares */
+        .miniicon {
+            width: 20px;
+            height: 20px;
+            background-color: none; /* placeholder */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .titles { flex: 1; }
+        .company-sub { margin: 0 0 6px; color: #7a7a7a; }
+        .job-title { margin: 0; font-weight: 700; font-size: 1.35rem; }
+
+        /* KPI row */
+        .kpis {
+            display: flex;
+            gap: 30px;
+            margin-top: 14px;
+            align-items: center;
+        }
+        .kpi { display:flex; gap:10px; align-items: center; }
+        .kpi .label { display: block; font-size: .92rem; color: #333; }
+        .kpi .value { font-weight: 600; margin-top: 6px; }
+
+        .apply-btn {
+            margin-top: 18px;
+            background: #123C69;
+            color: #fff;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 0 rgba(0,0,0,.18);
+            cursor: pointer;
+        }
+
+        /* Details wrapper: same width, centered */
+        .details-wrapper {
+            width: min(1500px, 88%);
+            margin: 22px auto;
+        }
+        .details-title { margin: 0 0 12px; font-weight: 700; font-size: 1.2rem; }
+
+        /* detail card with horizontal dividers */
+        .detail-card {
+            margin: 20px auto; /* center horizontally */
+            border-collapse: collapse;
+            max-width: 1500px;
+            width: 100%;
+            background-color: #EEE2DC;
+            border-radius: 12px;
+            overflow: hidden; /* keeps rounded corners */
+        }
+
+        /* Each "row" contains two cells (left/right) */
+        .detail-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            padding: 16px 20px;
+            align-items: center;
+        }
+        /* add top border (line) between rows */
+        .detail-row + .detail-row {
+            border-top: 2px solid #123C69;
+        }
+
+        /* cell content */
+        .detail-cell .label { font-weight: 600; margin-bottom: 6px; }
+        .detail-cell .value { color: #222; }
+
+        @media (max-width: 640px) {
+            .kpis { flex-direction: column; align-items: flex-start; }
+            .detail-row { grid-template-columns: 1fr; padding: 12px 14px; }
+            .detail-row + .detail-row { border-top: 2px solid #123C69; } /* still shows lines when stacked */
+        }
+
+        @media (max-width: 768px) {
+            .job-card {
+                padding: 15px;
+            }
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo.png" class="logo" alt="Logo">
+        <h1>MORE DETAILS</h1>
+        <div class="dropdown">
+            <button class="dropdown-toggle" id="dropdownBtn"></button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="resume.html"><button>Upload your CV</button></a>
+                <hr />
+                <a href="mainmenu.html">Main Menu</a>
+                <a href="list.html">Trending Jobs</a>
+                <a href="contact.html">About Us</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="job-card" id="jobCard">
+
+        <div class="company-section">
+            <div class="company-icon" aria-hidden="true" style="background-image: url('HealthFirst.png')"></div>
+            <div class="titles">
+                <p class="company-sub" id="companyName">Name of the company</p>
+                <h2 class="job-title" id="jobName">Name of the job</h2>
+            </div>
+        </div>
+
+        <div class="kpis" aria-hidden="false">
+            <div class="kpi">
+                <div class="miniicon" aria-hidden="true" style="background-image: url(icon1.png)"></div>
+                <div>
+                    <span class="label">Salary</span>
+                    <div class="value" id="salaryVal"></div>
+                </div>
+            </div>
+
+            <div class="kpi">
+                <div class="miniicon" aria-hidden="true" style="background-image: url(icon2.png)"></div>
+                <div>
+                    <span class="label">Date to apply</span>
+                    <div class="value" id="applyDateVal"></div>
+                </div>
+            </div>
+
+            <div class="kpi">
+                <div class="miniicon" aria-hidden="true" style="background-image: url(icon3.png)"></div>
+                <div>
+                    <span class="label">Location</span>
+                    <div class="value" id="locationVal"></div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="apply-btn">Apply your CV</button>
+
+    </div>
+
+    <div class="details-wrapper">
+
+        <h3 class="details-title">Details</h3>
+
+        <div class="detail-card" role="group" aria-labelledby="details-heading">
+            <!-- Row 1 -->
+            <div class="detail-row">
+                <div class="detail-cell">
+                    <div class="label">Date</div>
+                    <div class="value" id="dateVal"></div>
+                </div>
+                <div class="detail-cell">
+                    <div class="label">Rank</div>
+                    <div class="value" id="rankVal"></div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="detail-row">
+                <div class="detail-cell">
+                    <div class="label">Sex</div>
+                    <div class="value" id="sexVal"></div>
+                </div>
+                <div class="detail-cell">
+                    <div class="label">In Need</div>
+                    <div class="value" id="needVal"></div>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="detail-row">
+                <div class="detail-cell">
+                    <div class="label">Experience</div>
+                    <div class="value" id="expVal"></div>
+                </div>
+                <div class="detail-cell">
+                    <div class="label">Categories</div>
+                    <div class="value" id="catVal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job info + request -->
+    <section style="width: min(1500px, 88%); margin: 12px auto 48px;">
+        <h3>Job Information</h3>
+        <p id="infoText"></p>
+
+        <h3>Request</h3>
+        <ul id="reqList"></ul>
+    </section>
+
+    <div class="footer">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank">
+                <img src="facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <img src="instagram.png" alt="Instagram">
+            </a>
+            <a href="https://www.youtube.com/" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+            <a href="https://x.com/" target="_blank">
+                <img src="twitter.png" alt="Twitter">
+            </a>
+        </div>
+        <div class="copyright">
+            Copyright 2023 all rights Flowgiri reserved
+        </div>
+    </div>
+
+    <script>
+        const savedJob = localStorage.getItem('selectedJob');
+
+        if (savedJob) {
+            const job = JSON.parse(savedJob);
+
+            document.getElementById('companyName').textContent = job.company_name;
+            document.getElementById('jobName').textContent    = job.job_name;
+
+            document.getElementById('salaryVal').textContent   = job.salary;
+            document.getElementById('applyDateVal').textContent= job.apply_date;
+            document.getElementById('locationVal').textContent = job.location;
+
+            document.getElementById('dateVal').textContent  = job.date;
+            document.getElementById('rankVal').textContent  = job.rank;
+            document.getElementById('sexVal').textContent   = job.sex;
+            document.getElementById('needVal').textContent  = job.need;
+            document.getElementById('expVal').textContent   = job.experience;
+            document.getElementById('catVal').textContent   = job.categories;
+            document.getElementById('infoText').textContent = job.info;
+
+            const reqList = document.getElementById('reqList');
+            reqList.innerHTML = '';
+            job.requirement.split(';').forEach(r => {
+                const t = r.trim();
+                if (t) {
+                    const li = document.createElement('li');
+                    li.textContent = t;
+                    reqList.appendChild(li);
+                }
+            });
+
+            // Also update company logo
+            document.querySelector('.company-icon').style.backgroundImage = `url('${job.company_name}.png')`;
+        } else {
+            console.error("No job data found in localStorage.");
+        }
+        
+    </script>
+    <script src="mainscript.js"></script>
+
+</body>
+</html>

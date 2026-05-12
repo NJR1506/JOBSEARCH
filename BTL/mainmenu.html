@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="DefaultWithTitle.css" />
+
+        <style>
+
+            /* Slider */
+            .slider {
+            position: relative;
+            width: 100%;
+            max-width: 3000px;
+            margin: auto;
+            overflow: hidden; 
+            }
+            .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            will-change: transform;
+            }
+            .slides img {
+            display: block;
+            flex: 0 0 100%;
+            object-fit: contain;
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+            }
+
+            .arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0, 0, 0, 0.3);
+                color: white;
+                border: none;
+                font-size: 24px;
+                padding: 10px;
+                cursor: pointer;
+            }
+            .arrow.left {
+                left: 20px;
+            }
+            .arrow.right {
+                right: 20px;
+            }
+
+            /* Trending Jobs */
+            .trending-jobs {
+                max-width: 1200px;
+                margin: 20px auto;
+                margin-left: 20px;
+            }
+            .job-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+            }
+            .job-card {
+                background-color: #eee2dc;
+                padding: 15px;
+                border-radius: 10px;
+                text-align: center;
+                cursor: pointer;
+            }
+            .job-image {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 10px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            /* Categories */
+            .categories-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+                max-width: 1500px;
+                margin: 20px auto 0px 20px;
+            }
+            .category-card {
+                background-color: #eee2dc;
+                border-radius: 10px;
+                padding: 15px;
+                text-align: center;
+                cursor: pointer;
+            }
+            .category-card.special {
+                background-color: #bab2b5;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+            .category-image {
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 10px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            /* All Categories Popup */
+            .popup-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            .popup {
+                background: #f8edeb;
+                padding: 20px;
+                border-radius: 10px;
+                width: 80%;
+                max-height: 80%;
+                overflow-y: auto;
+            }
+            .popup h2 {
+                margin-left: 5px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .popup-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+            }
+            .popup-card {
+                background-color: #d9d9d9;
+                padding: 15px;
+                border-radius: 10px;
+                text-align: center;
+            }
+            .popup::-webkit-scrollbar {
+                width: 8px;
+            }
+            .popup::-webkit-scrollbar-thumb {
+                background-color: #bab2b5;
+                border-radius: 10px;
+            }
+
+            .cv-container {
+                display: flex;
+                background-color: #d9d9d9; /* grey placeholder */
+                border-radius: 10px;
+                padding: 20px;
+                margin-left: 20px;
+                margin-top: 20px;
+                margin-bottom: 40px;
+                min-height: 100px;
+                max-width: 1245px;
+                background-image: contain;
+                background-position: center;
+                position: relative;
+                z-index: 0;
+            }
+
+            .cv-button {
+                position: absolute;
+                left: 10px;
+                bottom: -15px;
+                background-color: #123C69;
+                border: none;
+                border-radius: 20px;
+                padding: 10px 30px;
+                cursor: pointer;
+                color: #eee2dc;
+                font-weight: bold;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+            .cv-button:hover {
+                background-color: #0f2f50;
+            }
+
+            @media (max-width: 480px) {
+                .slides img {
+                    width: 70%;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="header">
+            <img src="logo.png" class="logo" alt="Logo">
+            <h1>MAIN MENU</h1>
+            <div class="dropdown">
+                <button class="dropdown-toggle" id="dropdownBtn"></button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="resume.html"><button>Upload your CV</button></a>
+                    <hr />
+                    <a href="mainmenu.html">Main Menu</a>
+                    <a href="list.html">Trending Jobs</a>
+                    <a href="contact.html">About Us</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="slider">
+            <div class="slides" id="slides">
+                <img src="banner1.png" alt="Banner 1" />
+                <img src="banner2.png" alt="Banner 2" />
+                <img src="banner3.png" alt="Banner 3" />
+            </div>
+            <button class="arrow left" id="prev">&#9664;</button>
+            <button class="arrow right" id="next">&#9654;</button>
+        </div>
+
+        <!-- Trending Jobs -->
+        <div class="trending-jobs">
+            <h3>
+                TRENDING JOBS <a href="list.html" style="float: right;" class="viewall">View all ></a>
+            </h3>
+            <div class="job-grid" id="jobGrid"></div>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories">
+            <h3 style="margin-left: 20px;">CATEGORIES</h3>
+            <div class="categories-grid" id="categoryGrid"></div>
+        </div>
+
+        <!-- Popup All Categories -->
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup">
+                <h2>
+                ALL CATEGORIES
+                <span id="closePopup" style="cursor: pointer">&#10006;</span>
+                </h2>
+                <div class="popup-grid" id="popupGrid"></div>
+            </div>
+        </div>
+
+        <div class="cv-container" style="background-image: url('cvbanner.jpg');">
+            <a href="resume.html" class="cv-button">CREATE YOUR RESUME!</a>
+        </div>
+
+        <div class="footer">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank">
+                    <img src="facebook.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                    <img src="instagram.png" alt="Instagram">
+                </a>
+                <a href="https://www.youtube.com/" target="_blank">
+                    <img src="youtube.png" alt="YouTube">
+                </a>
+                <a href="https://x.com/" target="_blank">
+                    <img src="twitter.png" alt="Twitter">
+                </a>
+            </div>
+            <div class="copyright">
+                Copyright 2023 all rights Flowgiri reserved
+            </div>
+        </div>
+
+    <script>
+
+        /* ===== Slider ===== */
+        const slider = document.querySelector('.slider');
+        const slides = document.getElementById('slides');
+        const totalSlides = slides.children.length;
+        let currentIndex = 0;
+
+        function showSlide(i) {
+        currentIndex = (i + totalSlides) % totalSlides;      // wrap around
+        const offset = slider.clientWidth * currentIndex;     // move exactly 1 viewport width per step
+        slides.style.transform = `translateX(-${offset}px)`;
+        }
+
+        document.getElementById('next').addEventListener('click', () => showSlide(currentIndex + 1));
+        document.getElementById('prev').addEventListener('click', () => showSlide(currentIndex - 1));
+
+        let auto = setInterval(() => showSlide(currentIndex + 1), 8000);
+        ['next','prev'].forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener('mouseenter', () => clearInterval(auto));
+        el.addEventListener('mouseleave', () => auto = setInterval(() => showSlide(currentIndex + 1), 5000));
+        });
+
+        window.addEventListener('resize', () => showSlide(currentIndex)); // keep it aligned on resize
+
+        /* ===== Trending Jobs ===== */
+        fetch("dataset.json")
+            .then((res) => res.json())
+            .then((data) => {
+            const trendingJobs = data.slice(0, 6); // First 2 rows (6 jobs)
+            const jobGrid = document.getElementById("jobGrid");
+            trendingJobs.forEach((job) => {
+                const card = document.createElement("div");
+                card.className = "job-card";
+                card.innerHTML = `
+                <div class="job-image" style="background-image: url('${job.company_name}.png')"></div>
+                <div>${job.job_name}</div>
+                <div>${job.company_name}</div>
+            `;
+                card.addEventListener("click", () => {
+                localStorage.setItem("selectedJob", JSON.stringify(job));
+                window.location.href = "detail.html";
+                });
+                jobGrid.appendChild(card);
+            });
+        });
+
+        /* ===== Categories ===== */
+        const categories = [
+            "Sale management",
+            "Finance management",
+            "Customer service",
+            "Engineer",
+            "Education",
+            "Transport",
+            "Trainee",
+            "Marketing",
+            "Architect",
+            "Security",
+            "Designer",
+            "IT",
+            "Medicine",
+        ];
+
+        function createCategoryCard(name, bgColor = "#EEE2DC") {
+            const div = document.createElement("div");
+            div.className = "category-card";
+            div.style.backgroundColor = bgColor;
+            div.setAttribute("data-category", name);
+            div.innerHTML = `
+                <div class="category-image" style="background-image: url('${name}.png')"></div>
+                <div>${name}</div>
+            `;
+
+        div.addEventListener("click", () => {
+            localStorage.setItem("selectedCategory", name);
+            window.location.href = "categories.html"; // Your Trending Jobs page
+        });
+
+
+            return div;
+        }
+
+        const categoryGrid = document.getElementById("categoryGrid");
+        categories.slice(0, 5).forEach((cat) => {
+            categoryGrid.appendChild(createCategoryCard(cat));
+        });
+        const allCatBtn = document.createElement("div");
+        allCatBtn.className = "category-card special";
+        allCatBtn.textContent = "ALL CATEGORIES";
+        allCatBtn.addEventListener("click", () => {
+            document.getElementById("popupOverlay").style.display = "flex";
+        });
+        categoryGrid.appendChild(allCatBtn);
+
+        /* ===== Popup ===== */
+        const popupGrid = document.getElementById("popupGrid");
+        categories.forEach((cat) => {
+            const div = createCategoryCard(cat, "#D9D9D9");
+            popupGrid.appendChild(div);
+        });
+        document.getElementById("closePopup").addEventListener("click", () => {
+            document.getElementById("popupOverlay").style.display = "none";
+        });
+    </script>
+    <script src="mainscript.js"></script>
+  </body>
+</html>

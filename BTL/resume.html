@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="DefaultWithTitle.css" />
+
+    <style>
+
+        form h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .form-row input, .form-row select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .create-btn {
+            background: #ff6b2d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+    </style>
+
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo.png" class="logo" alt="Logo">
+        <h1>CREATE YOUR RESUME</h1>
+        <div class="dropdown">
+            <button class="dropdown-toggle" id="dropdownBtn"></button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="resume.html"><button>Upload your CV</button></a>
+                <hr />
+                <a href="mainmenu.html">Main Menu</a>
+                <a href="list.html">Trending Jobs</a>
+                <a href="contact.html">About Us</a>
+            </div>
+        </div>
+    </div>
+
+    <form id="resumeForm" style="max-width: 1400px; margin: auto; background-color: #EEE2DC; padding: 20px; border-radius: 8px;">
+        <!-- Personal Information -->
+        <h3>Personal Information</h3>
+        <div class="form-row">
+            <input type="text" placeholder="First Name">
+            <input type="text" placeholder="Last Name">
+        </div>
+        <div class="form-row">
+            <input type="text" placeholder="Country">
+            <input type="text" placeholder="City, State">
+        </div>
+        <div class="form-row">
+            <input type="text" placeholder="Street Address">
+            <input type="text" placeholder="Zip Code">
+        </div>
+        <div class="form-row">
+            <input type="email" placeholder="Email">
+            <input type="tel" placeholder="Phone">
+        </div>
+
+        <!-- Work Experience -->
+        <h3>Work Experience</h3>
+        <div class="form-row">
+            <input type="text" placeholder="Company Name">
+            <input type="text" placeholder="Job Title">
+        </div>
+        <div class="form-row">
+            <input type="text" placeholder="Country">
+            <select>
+                <option value="">Job type</option>
+                <option>Full-time</option>
+                <option>Part-time</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <select id="startMonth"></select>
+            <select id="startYear"></select>
+        </div>
+        <div class="form-row">
+            <select id="endMonth"></select>
+            <select id="endYear"></select>
+        </div>
+        <label><input type="checkbox"> I currently work here</label>
+
+        <!-- Education -->
+        <h3>Your Education</h3>
+        <div class="form-row">
+            <select>
+                <option value="">Degree type</option>
+                <option>Associate's</option>
+                <option>Bachelor's</option>
+                <option>Master's</option>
+                <option>Doctoral Degrees</option>
+            </select>
+            <input type="text" placeholder="School">
+        </div>
+        <div class="form-row">
+            <input type="text" placeholder="Subject Studied">
+            <select id="gradYear"></select>
+        </div>
+        <label><input type="checkbox"> I am currently enrolled</label>
+
+        <!-- Status -->
+        <h3>Select your status</h3>
+        <p>How would you like your profile/resume to be displayed to employers searching our database?</p>
+        <label><input type="radio" name="status" checked> Visible to employers</label><br>
+        <label><input type="radio" name="status"> Hide name & contact</label><br>
+        <label><input type="radio" name="status"> Not visible to employers</label>
+
+        <!-- Submit -->
+        <br><br>
+        <button type="submit" class="create-btn">Create Resume</button>
+    </form>
+
+    <div class="footer">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank">
+                <img src="facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <img src="instagram.png" alt="Instagram">
+            </a>
+            <a href="https://www.youtube.com/" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+            <a href="https://x.com/" target="_blank">
+                <img src="twitter.png" alt="Twitter">
+            </a>
+        </div>
+        <div class="copyright">
+            Copyright 2023 all rights Flowgiri reserved
+        </div>
+    </div>
+
+    <script>
+
+        // Populate months
+        const months = [
+            "January","February","March","April","May","June",
+            "July","August","September","October","November","December"
+        ];
+        const startMonth = document.getElementById("startMonth");
+        const endMonth = document.getElementById("endMonth");
+        months.forEach(m => {
+            startMonth.innerHTML += `<option>${m}</option>`;
+            endMonth.innerHTML += `<option>${m}</option>`;
+        });
+
+        // Populate years
+        function fillYears(selectId, start, end) {
+            const sel = document.getElementById(selectId);
+            for (let y = start; y <= end; y++) {
+                sel.innerHTML += `<option>${y}</option>`;
+            }
+        }
+        fillYears("startYear", 1990, 2024);
+        fillYears("endYear", 1990, 2025);
+        fillYears("gradYear", 1990, 2020);
+
+        // Reload page on submit
+        document.getElementById("resumeForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            location.reload();
+        });
+
+    </script>
+    <script src="mainscript.js"></script>
+
+</body>
+</html>
